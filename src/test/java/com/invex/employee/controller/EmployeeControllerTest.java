@@ -11,13 +11,15 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class EmployeeControllerTest {
+class EmployeeControllerTest {
 
     @Mock
     private EmployeeService service;
@@ -37,7 +39,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    void testGetListEmployees() throws Exception {
+    void testGetListEmployees() {
         when(service.getListEmployees())
                 .thenReturn(Collections.singletonList(employee));
         ResponseEntity<Response> response = controller.getListEmployees();
@@ -50,7 +52,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    void testGetEmployeeById() throws Exception {
+    void testGetEmployeeById() {
         when(service.getEmployeeById(1L)).thenReturn(employee);
 
         ResponseEntity<Response> response = controller.getEmployeeById(1L);
@@ -61,16 +63,19 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    void testCreateEmployee() throws Exception {
-        when(service.createEmployee(any(Employee.class))).thenReturn(employee);
-        ResponseEntity<Response> response = controller.createEmployee(new Employee());
+    void testCreateEmployee() {
+        Employee employeeTest =  new Employee();
+        Employee secondEmployeeTest = new Employee();
+        List<Employee> employees = Arrays.asList(employeeTest, secondEmployeeTest);
+        when(service.createEmployee(employees)).thenReturn(employees);
+        ResponseEntity<Response> response = controller.createEmployee(employees);
 
         assertNotNull(response.getBody().getData());
         assertEquals(200, response.getStatusCode().value());
     }
 
     @Test
-    void testUpdateEmployee() throws Exception {
+    void testUpdateEmployee() {
         when(service.updateEmployee(any(Employee.class), eq(1L))).thenReturn(employee);
         ResponseEntity<Response> response = controller.updateEmployee(new Employee(), 1L);
 
@@ -79,7 +84,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    void testDeleteEmployee() throws Exception {
+    void testDeleteEmployee() {
         doNothing().when(service).deleteEmployee(1L);
         ResponseEntity<Response> response = controller.deleteEmployee(1L);
 
@@ -89,7 +94,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    void testGetEmployeesByName() throws Exception {
+    void testGetEmployeesByName() {
         when(service.getEmployeesByName("Emmanuel"))
                 .thenReturn(Collections.singletonList(employee));
         ResponseEntity<Response> response = controller.getEmployeesByName("Emmanuel");

@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ExceptionHandlerTest {
+class ExceptionHandlerTest {
 
     @InjectMocks
     private ExceptionHandler exceptionHandler;
@@ -21,7 +21,7 @@ public class ExceptionHandlerTest {
     }
 
     @Test
-    void testHandleEmployeeException() throws Exception {
+    void testHandleEmployeeException() {
         EmployeeException exception = new EmployeeException(Error.GENERAL_ERROR);
 
         ResponseEntity<ErrorResponse> responseEntity = exceptionHandler.handleEmployeeException(exception);
@@ -36,7 +36,7 @@ public class ExceptionHandlerTest {
 
 
     @Test
-    void testHandleEmployeeGenericException() throws Exception {
+    void testHandleEmployeeGenericException() {
         RuntimeException exception = new RuntimeException("Unexpected DB error");
 
         ResponseEntity<ErrorResponse> responseEntity = exceptionHandler.handleGenericException(exception);

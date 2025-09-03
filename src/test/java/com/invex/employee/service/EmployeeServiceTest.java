@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -17,7 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-public class EmployeeServiceTest {
+class EmployeeServiceTest {
 
     @Mock
     private EmployeeRepository repository;
@@ -87,20 +88,26 @@ public class EmployeeServiceTest {
 
     @Test
     void testCreateEmployeeSuccess() {
-        when(repository.save(any(Employee.class))).thenReturn(employee);
+        Employee employeeTest =  new Employee();
+        Employee secondEmployeeTest = new Employee();
+        List<Employee> employees = Arrays.asList(employeeTest, secondEmployeeTest);
+        when(repository.saveAll(employees)).thenReturn(employees);
 
-        Employee result = service.createEmployee(employee);
+        List<Employee> result = service.createEmployee(employees);
 
-        assertNotNull(result.getCreatedAt());
-        assertEquals(employee, result);
+        assertNotNull(result.get(0).getCreatedAt());
     }
 
     @Test
     void testCreateEmployeeThrowsException() {
-        when(repository.save(any(Employee.class))).thenThrow(new RuntimeException("DB error"));
+        Employee employeeTest =  new Employee();
+        Employee secondEmployeeTest = new Employee();
+        List<Employee> employees = Arrays.asList(employeeTest, secondEmployeeTest);
+
+        when(repository.saveAll(employees)).thenThrow(new RuntimeException("DB error"));
 
         EmployeeException ex = assertThrows(EmployeeException.class,
-                () -> service.createEmployee(employee));
+                () -> service.createEmployee(employees));
 
         assertEquals(Error.CREATE_ERROR, ex.getErrorEmployee());
     }

@@ -61,3 +61,48 @@ cd invex-employee
 mvn clean install
 
 docker-compose up --build
+```
+
+![](postman/prueba_install.png)
+![](postman/prueba_docker.png)
+## 🚀 Ejecución y Pruebas Funcionales
+
+- Se realizaron pruebas funcionales para los siguientes requerimientos:
+  - GET /employees: Devuelve el listado de todos los empleados registrados.
+
+  - GET /employees/{id}: Recupera el detalle de un empleado por su ID.
+
+  - POST /employees: Permite insertar uno o varios empleados en una misma petición.
+
+  - PUT /employees/{id}: Actualiza todos o algunos de los campos de un empleado.
+
+  - DELETE /employees/{id}: Elimina un empleado por su ID.
+
+  - GET /employees/search?name={name}: Buscar empleados por nombre (búsqueda parcial).
+
+
+  ![](postman/prueba_coleccion.png)
+
+1. GET /employees: Devuelve el listado de todos los empleados registrados.
+
+    ![](postman/prueba_lista_empleados.png)
+
+
+2. GET /employees/{id}: Recupera el detalle de un empleado por su ID.
+    ![](postman/prueba_detalle_empleado.png)
+
+
+3. POST /employees: Permite insertar uno o varios empleados en una misma petición.
+![](postman/prueba_crear_empleado.png)
+
+
+4. PUT /employees/{id}: Actualiza todos o algunos de los campos de un empleado.
+    ![](postman/prueba_update.png)
+
+
+6. DELETE /employees/{id}: Elimina un empleado por su ID.
+![](postman/prueba_eliminar_empleado.png)
+
+
+7. GET /employees/search?name={name}: Buscar empleados por nombre (búsqueda parcial).
+    ![](postman/prueba_empleado_nombre.png)

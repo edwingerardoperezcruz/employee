@@ -43,10 +43,10 @@ public class EmployeeService {
         }
     }
 
-    public Employee createEmployee(Employee employee) {
+    public List<Employee> createEmployee(List<Employee> employees) {
         try {
-            employee.setCreatedAt(LocalDateTime.now());
-            return repository.save(employee);
+            employees.forEach(employee -> employee.setCreatedAt(LocalDateTime.now()));
+            return repository.saveAll(employees);
         } catch (Exception ex) {
             throw new EmployeeException(Error.CREATE_ERROR);
         }
