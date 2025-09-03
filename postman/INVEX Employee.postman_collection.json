@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "3c32a04f-b0e9-45d0-9ac8-260397a1f7d0",
+		"name": "INVEX Employee",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "48124653",
+		"_collection_link": "https://edwingerardopc-1943015.postman.co/workspace/Edwin-Perez's-Workspace~1d7ed272-b478-4467-8e3d-e9ddb27dbf98/collection/48124653-3c32a04f-b0e9-45d0-9ac8-260397a1f7d0?action=share&source=collection_link&creator=48124653"
+	},
+	"item": [
+		{
+			"name": "createEmployee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let response = pm.response.json();\r",
+							"\r",
+							"pm.environment.set(\"ID_EMPLOYEE\", response.data.idEmployee)\r",
+							"\r",
+							"pm.environment.set(\"NAME_EMPLOYEE\", response.data.firstName)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Juan\",\r\n    \"middleName\": \"Juan\",\r\n    \"fatherLastName\": \"Lopez\",\r\n    \"motherLastName\": \"Lopez\",\r\n    \"age\": 23,\r\n    \"gender\": \"M\",\r\n    \"bornDate\": \"1998-05-02\",\r\n    \"position\": \"Conserje\",\r\n    \"status\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{PATH_BASE}}"
+			},
+			"response": []
+		},
+		{
+			"name": "getEmployees",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{PATH_BASE}}"
+			},
+			"response": []
+		},
+		{
+			"name": "getEmployeeById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{PATH_BASE}}{{ID_EMPLOYEE}}"
+			},
+			"response": []
+		},
+		{
+			"name": "findEmployeeByName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PATH_BASE}}search?name={{NAME_EMPLOYEE}}",
+					"host": [
+						"{{PATH_BASE}}search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{NAME_EMPLOYEE}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateEmployee",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Juan\",\r\n    \"middleName\": \"Jose\",\r\n    \"fatherLastName\": \"Lopez\",\r\n    \"motherLastName\": \"Lopez\",\r\n    \"age\": 23,\r\n    \"gender\": \"M\",\r\n    \"bornDate\": \"1998-05-02\",\r\n    \"position\": \"Conserje\",\r\n    \"status\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{PATH_BASE}}{{ID_EMPLOYEE}}"
+			},
+			"response": []
+		},
+		{
+			"name": "deleteEmployee",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{PATH_BASE}}{{ID_EMPLOYEE}}"
+			},
+			"response": []
+		}
+	]
+}
